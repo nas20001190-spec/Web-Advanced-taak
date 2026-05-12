@@ -59,6 +59,41 @@ main {
   margin: 0 auto;
 }
 
+/* ── Search bar ──────────────────────────────────────── */
+.search-bar {
+  margin-bottom: 1.5rem;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 420px;
+  background: #1e293b;
+  border: 1px solid #2d3f55;
+  border-radius: 0.75rem;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  padding: 0.65rem 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-bar input::placeholder {
+  color: #475569;
+}
+
+.search-bar input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+.no-results {
+  color: #64748b;
+  font-size: 0.95rem;
+  padding: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
 /* ── Spinner ─────────────────────────────────────────── */
 .spinner {
   display: none;

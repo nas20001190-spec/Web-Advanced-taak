@@ -3,8 +3,18 @@ const API_URL =
 
 const spinner = document.getElementById('spinner');
 const matchesContainer = document.getElementById('matches');
+const searchInput = document.getElementById('search');
+
+let allMatches = [];
 
 const renderMatches = (matches) => {
+  matchesContainer.innerHTML = '';
+
+  if (matches.length === 0) {
+    matchesContainer.innerHTML = '<p class="no-results">No matches found.</p>';
+    return;
+  }
+
   matches.forEach((match) => {
     const hasScore = match.intHomeScore !== null && match.intAwayScore !== null;
     const score = hasScore
@@ -29,6 +39,18 @@ const renderMatches = (matches) => {
   });
 };
 
+const filterMatches = (query) => {
+  const q = query.trim().toLowerCase();
+  const filtered = allMatches.filter(
+    (match) =>
+      match.strHomeTeam.toLowerCase().includes(q) ||
+      match.strAwayTeam.toLowerCase().includes(q)
+  );
+  renderMatches(filtered);
+};
+
+searchInput.addEventListener('input', (e) => filterMatches(e.target.value));
+
 const fetchMatches = async () => {
   spinner.classList.add('active');
 
@@ -40,7 +62,8 @@ const fetchMatches = async () => {
     }
 
     const data = await response.json();
-    renderMatches(data.events);
+    allMatches = data.events;
+    renderMatches(allMatches);
   } catch (error) {
     matchesContainer.innerHTML = `<p class="error">Failed to load matches: ${error.message}</p>`;
   } finally {
